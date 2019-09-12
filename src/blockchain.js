@@ -41,22 +41,22 @@ class Block {
 		this.timestamp = timestamp;
 		this.transactions = transactions;
 		this.previousHash = previousHash;
-		this.nounce = 0;
+		this.nonce = 0;
 		this.hash = this.calculateHash();
 	}
 
 	calculateHash() {
 		// SHA-256 Hash of a Block
-		return SHA256(this.previousHash + this.timestamp + JSON.stringify(this.transactions) + this.nounce).toString();
+		return SHA256(this.previousHash + this.timestamp + JSON.stringify(this.transactions) + this.nonce).toString();
 	}
 
 	mineBlock(difficulty) {
 		// console.log("Mining block with difficulty ", difficulty);
 		while (this.hash.substring(0, difficulty) !== Array(difficulty + 1).join("0")) {
-			this.nounce++;
+			this.nonce++;
 			this.hash = this.calculateHash();
 
-			// console.log('Mining block with nounce #', this.nounce, this.hash);
+			// console.log('Mining block with nonce #', this.nonce, this.hash);
 		}
 
 		console.log("Block mined: " + this.hash);
